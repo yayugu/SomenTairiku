@@ -6,6 +6,7 @@
 
 package main;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,6 +19,8 @@ public class MainWindow extends javax.swing.JFrame {
     /** Creates new form MainWindow */
     public MainWindow() {
         initComponents();
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/main/resources/icon16.png"));
+        this.setIconImage(imageIcon.getImage());
     }
 
     /** This method is called from within the constructor to

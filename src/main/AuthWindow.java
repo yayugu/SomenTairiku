@@ -6,6 +6,7 @@
 
 package main;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.Desktop;
 import java.net.URI;
@@ -21,6 +22,8 @@ public class AuthWindow extends javax.swing.JDialog {
     /** Creates new form AuthWindow */
     public AuthWindow() {
         initComponents();
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/main/resources/icon16.png"));
+        this.setIconImage(imageIcon.getImage());
     }
 
     /** This method is called from within the constructor to
