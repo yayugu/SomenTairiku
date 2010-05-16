@@ -1,4 +1,4 @@
-���[�߂�嗤��GPLv3�Ɋ�Â����J����Ă��܂��B
+﻿そーめん大陸はGPLv3に基づき公開されています。
 
-�A����
+連絡先
 twitter: @yayugu
