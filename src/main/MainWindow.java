@@ -38,6 +38,7 @@ public class MainWindow extends javax.swing.JFrame {
         textArea.setColumns(20);
         textArea.setLineWrap(true);
         textArea.setRows(5);
+        textArea.setMinimumSize(new java.awt.Dimension(1, 1));
         textArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 MainWindow.this.keyPressed(evt);
