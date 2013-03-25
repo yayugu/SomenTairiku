@@ -33,7 +33,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         textArea = new javax.swing.JTextArea();
-        labelCount = new javax.swing.JLabel();
+        javax.swing.JLabel labelCount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("そーめん大陸");
@@ -50,6 +50,7 @@ public class MainWindow extends javax.swing.JFrame {
                 MainWindow.this.keyReleased(evt);
             }
         });
+        textArea.getDocument().addDocumentListener(new LengthUpdateListener(textArea, labelCount));
 
         labelCount.setText("140");
         labelCount.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,7 +106,6 @@ public class MainWindow extends javax.swing.JFrame {
         } else if(evt.getKeyCode() == KeyEvent.VK_CONTROL) {
             ctrlPressed = true;
         }
-        labelCount.setText(Integer.toString(140 - textArea.getText().length()));
     }//GEN-LAST:event_keyPressed
 
     private void keyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyReleased
@@ -116,7 +116,6 @@ public class MainWindow extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel labelCount;
     private javax.swing.JTextArea textArea;
     // End of variables declaration//GEN-END:variables
 
