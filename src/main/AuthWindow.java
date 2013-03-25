@@ -9,7 +9,12 @@ package main;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.Desktop;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.io.IOException;
 import java.net.URI;
+
 import twitter4j.*;
 
 /**
@@ -97,23 +102,36 @@ public class AuthWindow extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void getAuthorizationCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getAuthorizationCodeActionPerformed
-        data.twitter = new TwitterFactory().getInstance();
-        data.twitter.setOAuthConsumer(data.consumerKey, data.consumerSecret);
+        data.instantiateTwitter();
         Desktop desktop = Desktop.getDesktop();
-        try{
-            data.requestToken = data.twitter.getOAuthRequestToken();
-            desktop.browse(new URI(data.requestToken.getAuthorizationURL()));
-        }catch(Exception e){
-            e.printStackTrace();
+        
+        URI uri = data.getAuthorizationURL();
+        if (uri == null) {
+        	JOptionPane.showMessageDialog(rootPane, "Failed to get the authorization URL",
+        			"Authorization Error", JOptionPane.ERROR_MESSAGE);
+        	return;
         }
+        try {
+			desktop.browse(uri);
+		} catch (IOException e) {
+			String str = uri.toString(); // 保存するテキスト
+			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+			StringSelection selection = new StringSelection(str);
+			clipboard.setContents(selection, null);
+        	JOptionPane.showMessageDialog(rootPane, 
+        			"Failed to open a browser. Go to the following URL to get PIN code.\n" 
+        			+ "This URL is set to the clipboard.\n"
+        			+ uri.toString(),
+        			"Authorization Error", JOptionPane.ERROR_MESSAGE);
+		}
     }//GEN-LAST:event_getAuthorizationCodeActionPerformed
 
     private void getOAuthAccessTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getOAuthAccessTokenActionPerformed
         try{
             if(pin.getText().length() > 0){
-                data.accessToken = data.twitter.getOAuthAccessToken(data.requestToken, pin.getText());
+                data.accessToken = data.getTwitter().getOAuthAccessToken(data.requestToken, pin.getText());
             }else{
-                data.accessToken = data.twitter.getOAuthAccessToken();
+                data.accessToken = data.getTwitter().getOAuthAccessToken();
             }
             this.dispose();
         } catch (TwitterException te) {

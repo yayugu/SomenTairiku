@@ -2,8 +2,10 @@
 package main;
 
 import twitter4j.*;
-import twitter4j.http.*;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 import java.io.*;
+import java.net.URI;
 
 /**
  *
@@ -17,7 +19,7 @@ final class Data {
         return Data.instance;
     }
 
-    public Twitter twitter;
+    private Twitter twitter;
     public RequestToken requestToken;
     public AccessToken accessToken = null;
     public String consumerKey = "jzRAY2WOMGOzquTTxtvfQ";
@@ -44,10 +46,28 @@ final class Data {
                     new FileInputStream("data.dat"),"UTF-8"));
         String token = br.readLine();
         String tokenSecret = br.readLine();
-        accessToken = new AccessToken(token, tokenSecret);
-        twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
         br.close();
+        instantiateTwitter();
+        accessToken = new AccessToken(token, tokenSecret);
+        twitter.setOAuthAccessToken(accessToken);
     }
+    
+	public Twitter getTwitter() {
+		return twitter;
+	}
+
+	public void instantiateTwitter() {
+    	twitter = new TwitterFactory().getInstance();
+        twitter.setOAuthConsumer(consumerKey, consumerSecret);
+	}
+	public URI getAuthorizationURL() {
+        try {
+			requestToken = getTwitter().getOAuthRequestToken();
+	        return new URI(requestToken.getAuthorizationURL());
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 
 
