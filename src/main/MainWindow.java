@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
  */
 public class MainWindow extends javax.swing.JFrame {
     Data data = Data.getInstance();
-    boolean ctrlPressed =  false;
 
     /** Creates new form MainWindow */
     public MainWindow() {
@@ -45,9 +44,6 @@ public class MainWindow extends javax.swing.JFrame {
         textArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 MainWindow.this.keyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                MainWindow.this.keyReleased(evt);
             }
         });
         textArea.getDocument().addDocumentListener(new LengthUpdateListener(textArea, labelCount));
@@ -96,23 +92,16 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_labelCountClick
 
     private void keyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER && ctrlPressed){
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER 
+        	&& (evt.getModifiers() & KeyEvent.CTRL_MASK) != 0){
             try{
                 data.getTwitter().updateStatus(textArea.getText());
             }catch(Exception e){
                 e.printStackTrace();
             }
             textArea.setText("");
-        } else if(evt.getKeyCode() == KeyEvent.VK_CONTROL) {
-            ctrlPressed = true;
         }
     }//GEN-LAST:event_keyPressed
-
-    private void keyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyReleased
-        if(evt.getKeyCode() == KeyEvent.VK_CONTROL) {
-            ctrlPressed = false;
-        }
-    }//GEN-LAST:event_keyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
