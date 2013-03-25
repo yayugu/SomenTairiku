@@ -7,6 +7,9 @@
 package main;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import twitter4j.TwitterException;
 
 /**
  *
@@ -93,12 +96,14 @@ public class MainWindow extends javax.swing.JFrame {
     private void keyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER 
         	&& (evt.getModifiers() & KeyEvent.CTRL_MASK) != 0){
-            try{
-                Data.getInstance().getTwitter().updateStatus(textArea.getText());
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            textArea.setText("");
+                try {
+					Data.getInstance().getTwitter().updateStatus(textArea.getText());
+	                textArea.setText("");
+				} catch (TwitterException e) {
+					e.printStackTrace();
+		        	JOptionPane.showMessageDialog(rootPane, e,
+		        			"Twitter Post Error", JOptionPane.ERROR_MESSAGE);
+				}
         }
     }//GEN-LAST:event_keyPressed
 
