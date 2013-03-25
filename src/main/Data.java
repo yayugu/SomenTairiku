@@ -46,9 +46,10 @@ final class Data {
                     new FileInputStream("data.dat"),"UTF-8"));
         String token = br.readLine();
         String tokenSecret = br.readLine();
-        accessToken = new AccessToken(token, tokenSecret);
-        twitter = new TwitterFactory().getInstance(accessToken);
         br.close();
+        instantiateTwitter();
+        accessToken = new AccessToken(token, tokenSecret);
+        twitter.setOAuthAccessToken(accessToken);
     }
     
 	public Twitter getTwitter() {
