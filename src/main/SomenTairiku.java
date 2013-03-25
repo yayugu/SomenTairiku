@@ -1,7 +1,5 @@
 package main;
 
-import twitter4j.*;
-
 public class SomenTairiku {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -15,8 +13,6 @@ public class SomenTairiku {
         try{
             data.loadData();
         }catch(Exception e){
-            data.twitter = new TwitterFactory().getInstance();
-            data.twitter.setOAuthConsumer(data.consumerKey, data.consumerSecret);
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new AuthWindow().setVisible(true);

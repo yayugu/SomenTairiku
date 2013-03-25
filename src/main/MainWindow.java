@@ -97,7 +97,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void keyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER && ctrlPressed){
             try{
-                data.twitter.updateStatus(textArea.getText());
+                data.getTwitter().updateStatus(textArea.getText());
             }catch(Exception e){
                 e.printStackTrace();
             }

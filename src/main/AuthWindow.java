@@ -97,11 +97,10 @@ public class AuthWindow extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void getAuthorizationCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getAuthorizationCodeActionPerformed
-        data.twitter = new TwitterFactory().getInstance();
-        data.twitter.setOAuthConsumer(data.consumerKey, data.consumerSecret);
+        data.instantiateTwitter();
         Desktop desktop = Desktop.getDesktop();
         try{
-            data.requestToken = data.twitter.getOAuthRequestToken();
+            data.requestToken = data.getTwitter().getOAuthRequestToken();
             desktop.browse(new URI(data.requestToken.getAuthorizationURL()));
         }catch(Exception e){
             e.printStackTrace();
@@ -111,9 +110,9 @@ public class AuthWindow extends javax.swing.JDialog {
     private void getOAuthAccessTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getOAuthAccessTokenActionPerformed
         try{
             if(pin.getText().length() > 0){
-                data.accessToken = data.twitter.getOAuthAccessToken(data.requestToken, pin.getText());
+                data.accessToken = data.getTwitter().getOAuthAccessToken(data.requestToken, pin.getText());
             }else{
-                data.accessToken = data.twitter.getOAuthAccessToken();
+                data.accessToken = data.getTwitter().getOAuthAccessToken();
             }
             this.dispose();
         } catch (TwitterException te) {

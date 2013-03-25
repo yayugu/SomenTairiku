@@ -18,7 +18,7 @@ final class Data {
         return Data.instance;
     }
 
-    public Twitter twitter;
+    private Twitter twitter;
     public RequestToken requestToken;
     public AccessToken accessToken = null;
     public String consumerKey = "jzRAY2WOMGOzquTTxtvfQ";
@@ -49,6 +49,15 @@ final class Data {
         twitter = new TwitterFactory().getInstance(accessToken);
         br.close();
     }
+    
+	public Twitter getTwitter() {
+		return twitter;
+	}
+
+	public void instantiateTwitter() {
+    	twitter = new TwitterFactory().getInstance();
+        twitter.setOAuthConsumer(consumerKey, consumerSecret);
+	}
 
 
 
