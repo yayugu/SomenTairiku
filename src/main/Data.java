@@ -2,7 +2,8 @@
 package main;
 
 import twitter4j.*;
-import twitter4j.http.*;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 import java.io.*;
 
 /**
@@ -45,7 +46,7 @@ final class Data {
         String token = br.readLine();
         String tokenSecret = br.readLine();
         accessToken = new AccessToken(token, tokenSecret);
-        twitter = new TwitterFactory().getOAuthAuthorizedInstance(consumerKey, consumerSecret, accessToken);
+        twitter = new TwitterFactory().getInstance(accessToken);
         br.close();
     }
 
