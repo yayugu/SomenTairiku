@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
  * @author yayugu
  */
 public class MainWindow extends javax.swing.JFrame {
-    Data data = Data.getInstance();
 
     /** Creates new form MainWindow */
     public MainWindow() {
@@ -95,7 +94,7 @@ public class MainWindow extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER 
         	&& (evt.getModifiers() & KeyEvent.CTRL_MASK) != 0){
             try{
-                data.getTwitter().updateStatus(textArea.getText());
+                Data.getInstance().getTwitter().updateStatus(textArea.getText());
             }catch(Exception e){
                 e.printStackTrace();
             }
