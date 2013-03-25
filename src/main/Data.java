@@ -5,6 +5,7 @@ import twitter4j.*;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import java.io.*;
+import java.net.URI;
 
 /**
  *
@@ -57,6 +58,14 @@ final class Data {
 	public void instantiateTwitter() {
     	twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer(consumerKey, consumerSecret);
+	}
+	public URI getAuthorizationURL() {
+        try {
+			requestToken = getTwitter().getOAuthRequestToken();
+	        return new URI(requestToken.getAuthorizationURL());
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 
